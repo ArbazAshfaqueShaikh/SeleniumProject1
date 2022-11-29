@@ -1,0 +1,49 @@
+package bcd;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class Ass2 {
+	WebDriver driver;
+	@BeforeTest
+	@Parameters("browserName")
+	public void setBrowser(String browserName) {
+		System.out.println("The browser is "+browserName);
+		if(browserName.equals("Chrome")) {
+			System.setProperty("Webdriver.chrome.driver", "C:\\Users\\Arbaz A Shaikh\\Downloads\\chromedriver_win32\\chromedriver.exe");
+		driver = new ChromeDriver();
+		}
+		else {
+			System.setProperty("Webdriver.gecko.driver","C:\\Users\\Arbaz A Shaikh\\Downloads\\geckodriver-v0.32.0-win64\\geckodriver.exe");
+			driver = new FirefoxDriver();
+		}
+	}
+		
+		
+		@Test
+		public void testparameter(){
+			driver.get("https://www.gmail.com");
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+			driver.findElement(By.id("Email")).sendKeys("sarbaz920@gmail.com");
+			driver.findElement(By.id("next")).click();
+			driver.findElement(By.id("passwd")).sendKeys("arbaz@123");
+			driver.findElement(By.id("signIn")).click();
+		}
+		@AfterTest
+		public void down() {
+			driver.quit();
+		}
+
+
+
+	
+
+}
